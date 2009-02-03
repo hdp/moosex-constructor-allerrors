@@ -46,7 +46,7 @@ MooseX::Constructor::AllErrors - capture all constructor errors
 
   ...
 
-  eval { MyClass->new };
+  eval { MyClass->new(bar => "hello") };
   # $@->errors has two errors, not just the missing required attribute
 
 =head1 DESCRIPTION
