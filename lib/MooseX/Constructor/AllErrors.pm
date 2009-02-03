@@ -58,6 +58,12 @@ If there are errors, C<$@> will contain a
 L<MooseX::Constructor::AllErrors::Error::Constructor> object.  See its
 documentation for possible error types.
 
+=begin Pod::Coverage
+
+init_meta
+
+=end Pod::Coverage
+
 =head1 SEE ALSO
 
 L<Moose>
