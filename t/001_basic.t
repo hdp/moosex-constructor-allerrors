@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 13;
 
 {
   package Foo;
@@ -15,6 +15,11 @@ use Test::More tests => 12;
   has baz => (
     is => 'ro',
     isa => 'Int',
+  );
+
+  has quux => (
+    is => 'ro',
+    trigger => sub { 1/0 },
   );
 
   no MooseX::Constructor::AllErrors;
@@ -44,4 +49,7 @@ is(
   "message is first error's message",
 );
 
-is("$e", "Attribute (bar) is required at " . __FILE__ . " line 27");
+is("$e", "Attribute (bar) is required at " . __FILE__ . " line 32");
+
+eval { Foo->new(bar => 1, quux => 1) };
+like $@, qr/Illegal division by zero/, "unrecognized error rethrown";

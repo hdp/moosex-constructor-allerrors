@@ -22,7 +22,12 @@ override construct_instance => sub {
             $attr->initialize_instance_slot($meta_instance, $instance, $params);
         };
         if (my $e = $@) {
-            $error->add_error($@);
+            if (blessed $e and 
+                $e->isa('MooseX::Constructor::AllErrors::Error')) {
+                $error->add_error($@); 
+            } else {
+                die $e;
+            }
         }
     }
     if ($error->has_errors) {

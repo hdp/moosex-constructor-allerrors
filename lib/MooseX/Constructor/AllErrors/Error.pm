@@ -1,9 +1,12 @@
 # vim: ts=4 sts=4 sw=4
 package MooseX::Constructor::AllErrors::Error;
 
+use Moose;
+
 package MooseX::Constructor::AllErrors::Error::Constructor;
 
 use Moose;
+extends 'MooseX::Constructor::AllErrors::Error';
 
 has errors => (
     is => 'ro',
@@ -51,6 +54,7 @@ use overload (
 package MooseX::Constructor::AllErrors::Error::Required;
 
 use Moose;
+extends 'MooseX::Constructor::AllErrors::Error';
 
 has attribute => (
     is => 'ro',
@@ -67,6 +71,7 @@ sub message {
 package MooseX::Constructor::AllErrors::Error::TypeConstraint;
 
 use Moose;
+extends 'MooseX::Constructor::AllErrors::Error';
 
 has attribute => (
     is => 'ro',
