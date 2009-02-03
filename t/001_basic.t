@@ -19,7 +19,7 @@ use Test::More tests => 13;
 
   has quux => (
     is => 'ro',
-    trigger => sub { 1/0 },
+    trigger => sub { my ($x, $y) = (1, 0); $x / $y; },
   );
 
   no MooseX::Constructor::AllErrors;
