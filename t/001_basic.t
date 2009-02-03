@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 {
   package Foo;
@@ -33,6 +33,7 @@ is($t->attribute, Foo->meta->get_attribute('bar'));
 is($t->message, 'Attribute (bar) is required');
 isa_ok($t = $e->errors->[1], 'MooseX::Constructor::AllErrors::Error::TypeConstraint');
 is($t->attribute, Foo->meta->get_attribute('baz'));
+is($t->data, 'hello');
 is($t->message,
   q{Attribute (baz) does not pass the type constraint because: Validation failed for 'Int' failed with value hello}
 );
