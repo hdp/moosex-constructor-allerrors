@@ -5,3 +5,7 @@
 0.002   2009-02-04
 
   * rethrow errors that aren't from us
+
+0.003   2009-02-04
+
+  * avoid compile-time death
