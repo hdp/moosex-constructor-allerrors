@@ -22,7 +22,10 @@ override construct_instance => sub {
             $error->add_error($@);
         }
     }
-    die $error if $error->has_errors;
+    $class->throw_error(
+        $error,
+        params   => $params,
+    ) if $error->has_errors;
     return $instance;
 };
 
