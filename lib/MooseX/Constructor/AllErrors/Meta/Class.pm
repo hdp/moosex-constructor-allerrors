@@ -13,7 +13,10 @@ override construct_instance => sub {
     my $meta_instance = $class->get_meta_instance;
 
     my $instance = $params->{'__INSTANCE__'} || $meta_instance->create_instance();
-    my $error = MooseX::Constructor::AllErrors::Error::Constructor->new;
+    my $error = MooseX::Constructor::AllErrors::Error::Constructor->new(
+        # XXX stupid magic number
+        caller => [ caller(4) ],
+    );
     foreach my $attr ($class->compute_all_applicable_attributes()) {
         eval { 
             $attr->initialize_instance_slot($meta_instance, $instance, $params);
@@ -22,10 +25,9 @@ override construct_instance => sub {
             $error->add_error($@);
         }
     }
-    $class->throw_error(
-        $error,
-        params   => $params,
-    ) if $error->has_errors;
+    if ($error->has_errors) {
+        $class->throw_error($error, params => $params);
+    }
     return $instance;
 };
 

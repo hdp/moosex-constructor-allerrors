@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More 'no_plan';
+use Test::More tests => 11;
 
 {
   package Foo;
@@ -20,7 +20,8 @@ use Test::More 'no_plan';
   no MooseX::Constructor::AllErrors;
 }
 
-my $foo = Foo->new(bar => 1);
+my $foo = eval { Foo->new(bar => 1) };
+is($@, '');
 isa_ok($foo, 'Foo');
 
 eval { Foo->new(baz => "hello") };
@@ -41,3 +42,5 @@ is(
   $e->errors->[0]->message,
   "message is first error's message",
 );
+
+is("$e", "Attribute (bar) is required at " . __FILE__ . " line 27");

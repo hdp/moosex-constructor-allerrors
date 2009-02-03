@@ -13,6 +13,12 @@ has errors => (
     default => sub { [] },
 );
 
+has caller => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    required => 1,
+);
+
 sub has_errors {
     return scalar @{ $_[0]->errors };
 }
@@ -28,6 +34,19 @@ sub message {
         unless $self->has_errors;
     return $self->errors->[0]->message;
 }
+
+sub stringify {
+    my $self = shift;
+    return '' unless $self->has_errors;
+    return sprintf '%s at %s line %d',
+        $self->message,
+        $self->caller->[1], $self->caller->[2];
+}
+
+use overload (
+    q{""} => 'stringify',
+    fallback => 1,
+);
 
 package MooseX::Constructor::AllErrors::Error::Required;
 
@@ -58,13 +77,6 @@ has attribute => (
 has data => (
     is => 'ro',
     required => 1,
-);
-
-has extra => (
-    is => 'ro',
-    isa => 'HashRef',
-    lazy => 1,
-    default => sub { {} },
 );
 
 sub message {

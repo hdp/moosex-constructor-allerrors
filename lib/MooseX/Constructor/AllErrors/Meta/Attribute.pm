@@ -7,8 +7,7 @@ use MooseX::Constructor::AllErrors::Error;
 #use MooseX::Constructor::AllErrors::Error::Required;
 #use MooseX::Constructor::AllErrors::Error::TypeConstraint;
 
-around initialize_instance_slot => sub {
-    my $orig = shift;
+override initialize_instance_slot => sub {
     my ($self, $meta_instance, $instance, $params) = @_;
     my $init_arg = $self->init_arg;
 
@@ -23,7 +22,7 @@ around initialize_instance_slot => sub {
         }
     }
 
-    return $orig->(@_);
+    return super;
 };
 
 override verify_against_type_constraint => sub {
@@ -38,7 +37,6 @@ override verify_against_type_constraint => sub {
         || die MooseX::Constructor::AllErrors::Error::TypeConstraint->new(
             attribute => $self,
             data      => $val,
-            extra     => {@_},
         );
 };
 
