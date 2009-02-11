@@ -22,6 +22,29 @@ has caller => (
     required => 1,
 );
 
+sub _errors_by_type {
+    my ($self, $type) = @_;
+    return [ grep { 
+        $_->isa("MooseX::Constructor::AllErrors::Error::$type")
+    } $self->errors ];
+}
+
+has missing => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    auto_deref => 1,
+    lazy => 1,
+    default => sub { shift->_errors_by_type('Required') },
+);
+
+has invalid => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    auto_deref => 1,
+    lazy => 1,
+    default => sub { shift->_errors_by_type('TypeConstraint') },
+);
+
 sub has_errors {
     return scalar @{ $_[0]->errors };
 }

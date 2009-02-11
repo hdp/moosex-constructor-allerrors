@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 15;
 
 {
   package Foo;
@@ -47,6 +47,18 @@ is(
   $e->message,
   $e->errors->[0]->message,
   "message is first error's message",
+);
+
+is_deeply(
+  [ map { $_->attribute->name } $e->missing ],
+  [ 'bar' ],
+  'correct missing',
+);
+
+is_deeply(
+  [ map { $_->attribute->name } $e->invalid ],
+  [ 'baz' ],
+  'correct invalid',
 );
 
 is("$e", "Attribute (bar) is required at " . __FILE__ . " line 32");
