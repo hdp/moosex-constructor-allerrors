@@ -7,6 +7,7 @@ use Moose ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use MooseX::Constructor::AllErrors::Role::Object;
+use MooseX::Constructor::AllErrors::Role::Meta::Method::Constructor;
 
 Moose::Exporter->setup_import_methods;
 
@@ -19,6 +20,13 @@ sub init_meta {
   Moose::Util::MetaRole::apply_base_class_roles(
     for_class => $options{for_class},
     roles => [ 'MooseX::Constructor::AllErrors::Role::Object' ],
+  );
+
+  Moose::Util::MetaRole::apply_metaclass_roles(
+    for_class => $options{for_class},
+    constructor_class_roles => [
+      'MooseX::Constructor::AllErrors::Role::Meta::Method::Constructor',
+    ],
   );
 }
 
