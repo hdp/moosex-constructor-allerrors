@@ -15,3 +15,7 @@
   * INCOMPATIBLE CHANGE: using AllErrors no longer uses Moose implicitly
   * implementation wrapping BUILDARGS instead of hooking into several different
     parts of object construction
+
+0.005   2009-03-01
+
+  * add constructor metarole for inlining
