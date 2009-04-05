@@ -1,14 +1,11 @@
-0.001   2009-02-03
+0.006   2009-04-05
 
-  * the "is this crazy?" release
+  * switch from deprecated method name compute_all_applicable_attributes
+  * fix Changes to be latest-first
+ 
+0.005   2009-03-01
 
-0.002   2009-02-04
-
-  * rethrow errors that aren't from us
-
-0.003   2009-02-04
-
-  * avoid compile-time death
+  * add constructor metarole for inlining
 
 0.004   2009-03-01
 
@@ -16,6 +13,14 @@
   * implementation wrapping BUILDARGS instead of hooking into several different
     parts of object construction
 
-0.005   2009-03-01
+0.003   2009-02-04
 
-  * add constructor metarole for inlining
+  * avoid compile-time death
+
+0.002   2009-02-04
+
+  * rethrow errors that aren't from us
+
+0.001   2009-02-03
+
+  * the "is this crazy?" release
