@@ -19,7 +19,7 @@ around BUILDARGS => sub {
   });
 
   my $meta = Moose::Util::find_meta($self);
-  for my $attr ($meta->compute_all_applicable_attributes) {
+  for my $attr ($meta->get_all_attributes) {
     next unless defined( my $init_arg = $attr->init_arg );
 
     if ($attr->is_required and 
