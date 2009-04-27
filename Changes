@@ -1,3 +1,7 @@
+0.007   Mon, 27 Apr 2009 11:26:35 -0400
+
+  * avoid Moose deprecation warning
+
 0.006   2009-04-05
 
   * switch from deprecated method name compute_all_applicable_attributes
